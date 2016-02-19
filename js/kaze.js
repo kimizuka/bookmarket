@@ -1,4 +1,4 @@
-(function(win, doc) {
+function dev(win, doc) {
 
   "use strict";
 
@@ -13,6 +13,7 @@
       that.achooFlag = false;
       that.index     = 0;
       that.elm.style.cssText += PandemicSpan.CONST.DEFAULT_STYLE;
+
       that.elm.addEventListener("webkitTransitionEnd", _handleTransitionEnd, false);
       that.elm.addEventListener("mozTransitionEnd", _handleTransitionEnd, false);
       that.elm.addEventListener("msTransitionEnd", _handleTransitionEnd, false);
@@ -57,18 +58,17 @@
       "transform: rotateZ(0deg);",
       "font-size: 100%;",
       "opacity: 1;"
-    ].join("")
+    ].join(""),
+    KLASS : "k-virus"
   };
 
   PandemicSpan.prototype._handleTransitionEnd = function(evt) {
     var that = this;
 
-    if (!!that.achooFlag && evt.propertyName === "font-size") {
+    if (!!that.achooFlag) {
       ++that.index;
       if (that.index < that.queue.length) {
         that.queue[that.index]();
-      } else {
-        that.index = 0;
       }
     }
   };
@@ -101,7 +101,9 @@
     var that = this;
 
     that.elm.style.display = "none";
+
     that.achooFlag = false;
+    that.index = 0;
   };
 
   PandemicSpan.prototype.achoo = function() {
@@ -113,10 +115,15 @@
 
   var index = 0,
       sickSpanList = [];
-    
+  
+  [].slice.call(doc.querySelectorAll("." + PandemicSpan.CONST.KLASS)).forEach(function(dom) {
+    dom.style.cssText = "";
+    dom.classList.remove(PandemicSpan.CONST.KLASS);
+  });
+
   examination(doc.body);
 
-  sickSpanList = [].slice.call(doc.querySelectorAll(".virus")).map(function(sickSpan) {
+  sickSpanList = [].slice.call(doc.querySelectorAll("." + PandemicSpan.CONST.KLASS)).map(function(sickSpan) {
     return new PandemicSpan(sickSpan);
   });
 
@@ -137,7 +144,7 @@
       });
       
       if (dom.innerHTML) {
-          dom.innerHTML = dom.innerHTML.replace(/&lt;&lt;span&lt;&lt;/g, "<span class='virus'>");
+          dom.innerHTML = dom.innerHTML.replace(/&lt;&lt;span&lt;&lt;/g, "<span class='" + PandemicSpan.CONST.KLASS + "'>");
           dom.innerHTML = dom.innerHTML.replace(/&gt;&gt;span&gt;&gt;/g, "</span>");
       }
   }
