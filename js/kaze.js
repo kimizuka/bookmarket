@@ -1,4 +1,4 @@
-function dev(win, doc) {
+(function (win, doc) {
 
   "use strict";
 
