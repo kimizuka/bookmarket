@@ -1,5 +1,5 @@
 【URL】<br />
-http://kimizuka.github.io/bookmarklet/
+https://kimizuka.github.io/bookmarklet/
 
 + KAZE<br />
 ブラウザが風邪を引きます。
