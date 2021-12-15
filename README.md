@@ -21,3 +21,6 @@ https://kimizuka.github.io/bookmarklet/
 
 + QR<br />
 ページのURLのQRコードを生成します。
+
++ CALENDAR<br />
+Googleカレンダーの予定名を「予定あり」にしてからスクリーンショットをダウンロードします。
